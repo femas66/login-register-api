@@ -19,6 +19,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('auth:sanctum')->group(function () {
+    Route::get('user', function () {
+        return ResponseHelper::success(auth()->user);
+    });
     Route::post('logout', function () {
         Auth::user()->currentAccessToken()->delete();
         return ResponseHelper::success(Auth::user()->token,'success logout');
