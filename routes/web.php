@@ -1,5 +1,7 @@
 <?php
 
+use App\Helpers\ResponseHelper;
+use App\Models\visitor;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,4 +17,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return ['Laravel' => app()->version()];
+});
+
+Route::get('visitors', function () {
+    ResponseHelper::success(visitor::get());
 });

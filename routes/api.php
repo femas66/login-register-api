@@ -2,6 +2,7 @@
 
 use App\Helpers\ResponseHelper;
 use App\Models\User;
+use App\Models\visitor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -22,8 +23,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('user', function () {
         return ResponseHelper::success(auth()->user());
     });
-    Route::post('logout', function () {
+    Route::post('logout', function (Request $request) {
         Auth::user()->currentAccessToken()->delete();
+        $data = ['ip' => $request->ip()];
+        visitor::create($data);
         return ResponseHelper::success(Auth::user()->token,'success logout');
     });
 });
@@ -32,6 +35,9 @@ Route::post('login', function (Request $request) {
     if (auth()->attempt(['email' => $request->email, 'password' => $request->password])) {
         $data['token'] = auth()->user()->createToken('auth_token')->plainTextToken;
         $data['user'] = auth()->user();
+        $data = ['ip' => $request->ip()];
+        visitor::create($data);
+
         return ResponseHelper::success($data);
     }
     else {
