@@ -20,5 +20,5 @@ Route::get('/', function () {
 });
 
 Route::get('visitors', function () {
-    ResponseHelper::success(visitor::get());
+    return ResponseHelper::success(visitor::get());
 });
