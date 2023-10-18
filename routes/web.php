@@ -1,6 +1,7 @@
 <?php
 
 use App\Helpers\ResponseHelper;
+use App\Http\Resources\VisitorResource;
 use App\Models\visitor;
 use Illuminate\Support\Facades\Route;
 
@@ -20,5 +21,5 @@ Route::get('/', function () {
 });
 
 Route::get('visitors', function () {
-    return ResponseHelper::success(visitor::get());
+    return ResponseHelper::success(VisitorResource::collection(visitor::get()));
 });
