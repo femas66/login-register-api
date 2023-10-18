@@ -35,8 +35,8 @@ Route::post('login', function (Request $request) {
     if (auth()->attempt(['email' => $request->email, 'password' => $request->password])) {
         $data['token'] = auth()->user()->createToken('auth_token')->plainTextToken;
         $data['user'] = auth()->user();
-        $data = ['ip' => $request->ip()];
-        visitor::create($data);
+        $x = ['ip' => $request->ip()];
+        visitor::create($x);
 
         return ResponseHelper::success($data);
     }
