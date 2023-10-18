@@ -21,5 +21,5 @@ Route::get('/', function () {
 });
 
 Route::get('visitors', function () {
-    return ResponseHelper::success(VisitorResource::collection(visitor::get()));
+    return ResponseHelper::success(VisitorResource::collection(visitor::orderByDesc('created_at')->get()));;
 });
